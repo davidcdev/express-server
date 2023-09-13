@@ -1,12 +1,17 @@
 const express = require('express')
 const router = express.Router();
+const taskList = require('./taskList.json');
 
 router.get('/completed', (req, res) => {
-  res.send('✅ Completed Tasks list');
+  const completedTasks = taskList.filter(task => task.completed === true);
+
+  res.json(completedTasks);
 })
 
 router.get('/pending', (req, res) => {
-  res.send('📌 Pending Tasks list');
+  const pendingTasks = taskList.filter(task => task.completed === false);
+
+  res.json(pendingTasks);
 })
 
 module.exports = router;
