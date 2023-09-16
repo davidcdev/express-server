@@ -1,18 +1,24 @@
-const express = require('express');
-const { handleMethodError } = require('./middlewares');
+import 'dotenv/config'
+import express from 'express';
+import { handleMethodError } from './middlewares/handleMethodError.js'
 
 const app = express();
+const PORT = process.env.PORT;
+
 app.use(express.json());
 
-
-const viewTasksList = require('./list-view-router.js');
-const editTasksList = require('./list-edit-router.js');
+import { editTasksList } from './routes/list-edit-router.js';
+import { viewTasksList } from './routes/list-view-router.js';
 
 app.use(handleMethodError);
 
-app.use('/view-list/', handleMethodError, viewTasksList);
-app.use('/edit-list/', handleMethodError, editTasksList);
+app.use('/view-list/', viewTasksList);
+app.use('/edit-list/', editTasksList);
 
-app.listen(3000, () => {
-  console.log(`Server is listening on http://localhost:3000`);
+app.get('/', (req, res) => {
+  res.status(200).send('<h1>Welcome to Productive Day</h1>');
+});
+
+app.listen(PORT, () => {
+  console.log(`Server running...`);
 });
