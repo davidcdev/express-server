@@ -6,7 +6,7 @@ export const editTasksList = Router();
 
 editTasksList.use(handleEditError);
 
-const taskList = JSON.parse(fs.readFileSync('./taskList.json', 'utf8'));
+const taskList = JSON.parse(fs.readFileSync('./data/taskList.json', 'utf8'));
 
 editTasksList.post('/add', (req, res) => {
   const { description } = req.body;
@@ -19,7 +19,7 @@ editTasksList.post('/add', (req, res) => {
 
   taskList.push(newTask);
 
-  fs.writeFileSync('./taskList.json', JSON.stringify(taskList));
+  fs.writeFileSync('./data/taskList.json', JSON.stringify(taskList));
 
   res.status(201).json(taskList);
 });
@@ -29,7 +29,7 @@ editTasksList.delete('/delete/:id', (req, res) => {
 
   taskList.splice(id - 1, 1);
 
-  fs.writeFileSync('./taskList.json', JSON.stringify(taskList));
+  fs.writeFileSync('./data/taskList.json', JSON.stringify(taskList));
 
   res.status(200).json(taskList);
 });
@@ -52,7 +52,7 @@ editTasksList.put('/update/:id', (req, res) => {
     })
   };
 
-  fs.writeFileSync('./taskList.json', JSON.stringify(taskList));
+  fs.writeFileSync('./data/taskList.json', JSON.stringify(taskList));
 
   res.status(200).json(taskList);
 });

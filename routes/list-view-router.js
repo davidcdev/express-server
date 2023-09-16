@@ -1,5 +1,5 @@
 import { Router } from 'express';
-import taskList from '../taskList.json' assert { type: 'json' };
+import taskList from '../data/taskList.json' assert { type: 'json' };
 import { handleParamsError } from '../middlewares/handleParamsError.js';
 
 export const viewTasksList = Router();
