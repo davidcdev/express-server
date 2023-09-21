@@ -1,9 +1,11 @@
 import { Router } from 'express';
 import taskList from '../data/taskList.json' assert { type: 'json' };
 import { handleParamsError } from '../middlewares/handleParamsError.js';
+import { JWTValidation } from '../middlewares/JWTValidation.js';
 
 export const viewTasksList = Router();
 
+viewTasksList.use(JWTValidation);
 viewTasksList.use(handleParamsError);
 
 viewTasksList.get('/', (req, res) => {

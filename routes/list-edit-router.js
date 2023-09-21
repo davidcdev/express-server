@@ -1,9 +1,11 @@
 import { Router } from 'express';
 import fs from 'fs';
 import { handleEditError } from '../middlewares/handleEditError.js';
+import { JWTValidation } from '../middlewares/JWTValidation.js';
 
 export const editTasksList = Router();
 
+editTasksList.use(JWTValidation);
 editTasksList.use(handleEditError);
 
 const taskList = JSON.parse(fs.readFileSync('./data/taskList.json', 'utf8'));
